@@ -7,7 +7,7 @@ with DAG(
 
     },
     description="Pipeline y orquetación de NYC-TLC",
-    schedule=timedelta(days=1),
+    schedule=None, 
     start_date=datetime(2026, 7, 29),
     catchup=False,
     tags=['nyc-tlc']
