@@ -1,4 +1,8 @@
 import pandas as pd 
+import logging
+
+# Configurar el logger estándar de Airflow
+logger = logging.getLogger("airflow.task")
 #Limpienza (s3 bronze/crudo -> s3 Silver)
 
 anos=[2023, 2024]
@@ -38,3 +42,7 @@ for ano in anos:
             print(f"archivo {nombre_archivo} cargado y actualizado")
         except Exception as e:
             print(f"Error general en la transferencia {ano}-{mes}: {e}")
+            logger.error(f'Fallo en la operación: {e}', exc_info=True)
+
+        #Para que la tarea se lance como error y marque FAILED    
+            raise e

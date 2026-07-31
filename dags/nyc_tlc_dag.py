@@ -39,15 +39,17 @@ def crawler_automatico():
     except glue_client.exceptions.AccessDeniedException as e:
         print(f"Access Denied (Specific): {e.response['Error']['Message']}")
         logger.error(f'Fallo en la operación: {e}', exc_info=True)
-        
+
         #Para que la tarea se lance como error y marque FAILED    
         raise e
             
     except ClientError as err:
             if err.response['Error']['Code'] == 'EntityNotFoundException':
                 print("Error: The specified crawler does not exist.")
+                raise err
             else:
                 print(f"Unexpected error: {err}")
+                raise err
 
 with DAG(
     "Pipeline_NYC_TLC",
