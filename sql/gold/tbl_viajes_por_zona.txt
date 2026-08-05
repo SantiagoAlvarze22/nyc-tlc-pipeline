@@ -1,0 +1,10 @@
+CREATE TABLE viajes_por_zona
+WITH (
+    format = 'PARQUET',
+    external_location = 's3://datalake-nyc-tlc/datos-gold/viajes_por_zona/',
+    write_compression='SNAPPY'   
+)AS 
+SELECT tz.Zone, tz.borough, COUNT(*) as "Cantidad"
+FROM datos_silver ds 
+LEFT JOIN taxi_zone_lookup tz on tz.locationid = ds.pulocationid
+GROUP BY tz.zone, tz.borough;

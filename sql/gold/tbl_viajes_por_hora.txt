@@ -1,0 +1,9 @@
+CREATE TABLE viajes_por_hora 
+WITH (
+    format = 'PARQUET',
+    external_location = 's3://datalake-nyc-tlc/datos-gold/viajes_por_hora/',
+    write_compression='SNAPPY'   
+)
+AS SELECT EXTRACT(HOUR FROM tpep_pickup_datetime) AS hour, COUNT(*) AS cantidad
+FROM datos_silver 
+GROUP BY 1;
