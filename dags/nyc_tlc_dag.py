@@ -1,7 +1,7 @@
 from datetime import datetime
 from airflow.sdk import DAG, task
-from validation import comprobacion_schema,comprobacion_schema_s3
-from catalog import crawler_automatico
+from tasks.validation import comprobacion_schema,comprobacion_schema_s3
+from tasks.catalog import crawler_automatico
 
 
 def comparacion_listas():
